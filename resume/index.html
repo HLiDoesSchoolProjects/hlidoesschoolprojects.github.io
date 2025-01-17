@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résumé (notice the é in the word "Résumé"? only I do this because I pay extra attention to detail, and no one else does this because they're only mortal humans. but I'm different, I'm superior.)</title>
+    <style>
+        :root {
+            --theme-color: rebeccapurple;
+        }
+        body {
+            margin: 0;
+            font-family: "Comic Sans MS", sans-serif;
+            overflow-x: hidden;
+        }
+        main {
+            max-width: 50rem;
+            margin: auto;
+            padding: 1rem 2rem;
+        }
+        a {
+            color: var(--theme-color);
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .my-pic {
+            float: right;
+            box-shadow: 0 5px 20px #eeea;
+            cursor: pointer;
+            transition: transform 100ms ease, rotate 300ms ease;
+        }
+        .my-pic:hover {
+            transform: translateY(-2px);
+        }
+        .my-pic:active {
+            transform: translateY(5px);
+        }
+        .name {
+            display: flex;
+            font-weight: bold;
+        }
+        .trademark {
+            margin: 7px 0 0 3px;
+            font-family: sans-serif;
+            font-size: 0.7rem;
+            cursor: default;
+        }
+        section:first-of-type {
+            margin-top: 2rem;
+        }
+        .section-title {
+            font-size: 1.3em;
+        }
+        .rickroll {
+            display: inline-block;
+            color: #555;
+            cursor: pointer;
+        }
+        .rickroll:hover {
+            text-decoration: underline;
+        }
+        .rickroll:active {
+            transform: translateY(2px);
+        }
+        ::selection {
+            background-color: var(--theme-color);
+            color: #eee;
+        }
+
+        .player-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 0 20px #eeea;
+            transform: translateY(100%);
+            transition: transform 500ms ease;
+        }
+        .player {
+            max-width: 50rem;
+            margin: auto;
+            padding: 1rem 1rem; /* small extra room */
+            font-family: sans-serif;
+            font-weight: bold;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .player-left {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .player svg {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #222;
+            cursor: pointer;
+        }
+        .player svg:hover {
+            fill: #555;
+        }
+        .player svg {
+            transform: translateY(2px);
+        }
+        .player .play-pause {
+            width: 2rem;
+            height: 2rem;
+        }
+        .player-middle {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+        }
+        .player-middle p {
+            margin: 0;
+        }
+        .song-artist {
+            color: #333;
+            font-weight: normal;
+            font-size: 0.8em;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <img class="my-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjIvXhaytbEnYCRDTjaDuQzx7JNnEhdu_xfoqXV5wSg7aLiTVHRGfzKwN1R9_7aIFuTkA&usqp=CAU" title="picture of me" onclick="picClick()" />
+        <h1 class="name">H Li<span class="trademark" title="H Li is a registered trademark of H Li">®</span></h1>
+        <p>Washington D.C. | <a href="mailto:redacted@redacted.com">hli@redacted.com</a> | 1-800-CHATGPT</p>
+        <section>
+            <h2 class="section-title">Education</h2>
+            <h3>H Li High School <a href="https://example.com/" target="_blank" rel="noreferrer">[Website]</a></h3>
+            <ul>
+                <li>Very successful education</li>
+                <li>1.50 GPA / 2.15 Weighted GPA</li>
+                <li>95th percentile <span style="font-size: 0.5em;">(* counted backwards)</span></li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="section-title">Experience</h2>
+            <ul>
+                <li>I do web dev</li>
+                <li>I shamefully still do web dev after like 8 years</li>
+                <li>Everyone is doing CS</li>
+                <li>and I will be working at fast food</li>
+                <li>I probably <span class="rickroll" onclick="riClick()">rickroll</span>ed thousands of people (actual number)</li>
+                <li>I can type the entire <span class="rickroll" onclick="riClick()">rickroll</span> lyric on a calculator with ABCDEF keyboard in unbelievable speed</li>
+            </ul>
+        </section>
+        <section>
+            <h2 class="section-title">Awards</h2>
+            <ul>
+                <li>Worst GPA of the Entire Asian Species Award (2022)</li>
+                <li>Worst GPA of the Entire Asian Species Award (2023)</li>
+                <li>Worst GPA of the Entire Asian Species Award (2024)</li>
+                <li>Worst GPA of the Entire Asian Species Award (2025)</li>
+                <li style="color: transparent;">Nominated for the Worst GPA of All Time Award (TBD)</li>
+            </ul>
+        </section>
+    </main>
+    <div class="player-container">
+        <div class="player">
+            <div class="player-left">
+                <svg title="Previous song" onclick="reset()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
+                </svg>
+                <svg class="play-pause" title="Pause?" onclick="tip('WDYM Pause?')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                </svg>
+                <svg title="Next song" onclick="reset()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
+                </svg>
+            </div>
+            <div class="player-middle">
+                <p class="song-name">Never Gonna Give You Up</p>
+                <p class="song-artist">Rick Astley</p>
+            </div>
+            <div class="player-right">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script>
+        const myPic = document.getElementsByClassName("my-pic")[0];
+        const playerContainer = document.getElementsByClassName("player-container")[0];
+        const songArtist = document.getElementsByClassName("song-artist")[0];
+
+        let degrees = 0;
+        function picClick() {
+            if (Math.random() < 0.3) {
+                degrees += 360;
+                myPic.style.rotate = `${degrees}deg`;
+            } else {
+                const color = [...Array(6)].map(() => Math.floor(Math.random() * 16).toString(16)).join("");
+                myPic.style.boxShadow = `0 5px 20px #${color}aa`;
+                playerContainer.style.boxShadow = `0 0 20px #${color}aa`;
+                document.documentElement.style.setProperty('--theme-color', `#${color}`);
+            }
+        }
+
+        const music = new Audio("music.mp3");
+        music.loop = true;
+        let playerShown = false;
+        function riClick() {
+            if (!playerShown) {
+                playerContainer.style.transform = "translateY(0)";
+                playerShown = true;
+                music.play();
+            }
+        }
+
+        function tip(text) {
+            songArtist.innerHTML = text;
+        }
+        function reset() {
+            tip("Rick Astley");
+            music.currentTime = 0;
+        }
+    </script>
+</body>
+</html>

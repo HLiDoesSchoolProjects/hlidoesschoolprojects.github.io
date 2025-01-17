@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Guessing Game</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .title {
+            margin: 3rem 0 0 0;
+            text-align: center;
+        }
+
+        .guess {
+            padding-block: 3rem;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+        }
+        .guess-input {
+            width: 16rem;
+            height: 3rem;
+            padding-left: 1rem;
+            border: 1px solid #888;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            font-size: 1.5em;
+        }
+        .guess-button {
+            padding-inline: 1.5rem;
+            background-color: #eee;
+            border: 1px solid #888;
+            border-left: 0;
+            border-radius: 0 5px 5px 0;
+            font-size: 1.2em;
+            cursor: pointer;
+            user-select: none;
+        }
+        .guess-button:hover {
+            background-color: #ddd;
+        }
+        .guess-button:active {
+            background-color: #aaa;
+        }
+
+        .wordle {
+            margin: auto;
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 0.3rem;
+            align-items: center;
+        }
+        .wordle-row {
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.3rem;
+        }
+        .wordle-block {
+            width: 4rem;
+            height: 4rem;
+            color: #fff;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+            line-height: 4rem;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .end {
+            margin-top: 2rem;
+            text-align: center;
+            visibility: hidden;
+        }
+        .end-text {
+            font-size: 1.2em;
+        }
+        .restart-button {
+            margin-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            background-color: #eee;
+            border: 1px solid #888;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            user-select: none;
+        }
+        .restart-button:hover {
+            background-color: #ddd;
+        }
+        .restart-button:active {
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Word Guessing Game</h1>
+    <div class="guess">
+        <input class="guess-input" type="text" pattern="[a-zA-Z]+" maxlength="5" autocomplete="off" autofocus />
+        <button class="guess-button">Try!</button>
+    </div>
+    <div class="wordle">
+        <div class="wordle-row">
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+        </div>
+        <div class="wordle-row">
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+        </div>
+        <div class="wordle-row">
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+        </div>
+        <div class="wordle-row">
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+        </div>
+        <div class="wordle-row">
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+        </div>
+        <div class="wordle-row">
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+            <div class="wordle-block"></div>
+        </div>
+        <div class="end">
+            <p class="end-text"></p>
+            <button class="restart-button">Restart</button>
+        </div>
+    </div>
+
+    <script>
+        const WORD_LIST = ["apple", "bored", "const", "delta", "eagle", "flyer", "grape", "horse", "idiom", "joker", "kings", "lemon", "money", "nomad", "other", "prank", "quest", "roast", "super", "toast", "upper", "vague", "waive", "xenon", "yearn", "zebra"];
+
+        const guessInput = document.getElementsByClassName("guess-input")[0];
+        const guessButton = document.getElementsByClassName("guess-button")[0];
+        const wordleBlocks = document.getElementsByClassName("wordle-block");
+        const end = document.getElementsByClassName("end")[0];
+        const endText = document.getElementsByClassName("end-text")[0];
+        const restartButton = document.getElementsByClassName("restart-button")[0];
+
+        guessInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                guessButton.click();
+            }
+        });
+        guessButton.addEventListener("click", () => {
+            if (guess(guessInput.value)) {
+                guessInput.value = "";
+            };
+        });
+        restartButton.addEventListener("click", () => {
+            answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+            roundsDone = 0;
+            for (const wordleBlock of wordleBlocks) {
+                wordleBlock.innerHTML = "";
+                wordleBlock.style.border = "2px solid #ccc";
+                wordleBlock.style.backgroundColor = "";
+            }
+            end.style.visibility = "hidden";
+        });
+
+        let answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+        let roundsDone = 0;
+        function guess(guess) {
+            if (guess.length !== 5) return false;
+
+            for (let i = 0; i < 5; i++) {
+                const letter = guess.substring(i, i + 1).toLowerCase();
+                let color = "";
+                if (letter === answer.substring(i, i + 1)) {
+                    color = "#6aaa64";
+                } else if (answer.indexOf(letter) > -1) {
+                    color = "#c9b458";
+                } else {
+                    color = "#777";
+                }
+                wordleBlocks[roundsDone * 5 + i].innerHTML = letter.toUpperCase();
+                wordleBlocks[roundsDone * 5 + i].style.border = "none";
+                wordleBlocks[roundsDone * 5 + i].style.backgroundColor = color;
+            }
+
+            roundsDone++;
+            if (guess.toLowerCase() === answer) {
+                endText.innerHTML = `You guessed it in ${roundsDone} rounds!`;
+                end.style.visibility = "visible";
+            } else if (roundsDone === 6) {
+                endText.innerHTML = `The correct answer was ${answer.charAt(0).toUpperCase() + answer.slice(1)}.`;
+                end.style.visibility = "visible";
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

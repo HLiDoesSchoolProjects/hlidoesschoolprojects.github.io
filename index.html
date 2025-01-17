@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HLiDoesSchoolProjects Home</title>
+    <style>
+        :root {
+            --theme-color: green;
+        }
+        body {
+            margin: 0;
+            font-family: "Comic Sans MS", sans-serif;
+            overflow-x: hidden;
+        }
+        main {
+            max-width: 50rem;
+            margin: auto;
+            padding: 2rem 2rem;
+        }
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 2rem;
+        }
+        a {
+            color: var(--theme-color);
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .player-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 0 20px #eeea;
+            transform: translateY(100%);
+            transition: transform 500ms ease;
+            user-select: none;
+        }
+        .player {
+            max-width: 50rem;
+            margin: auto;
+            padding: 1rem 1rem; /* small extra room */
+            font-family: sans-serif;
+            font-weight: bold;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .player-left {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .player svg {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            fill: #222;
+            cursor: pointer;
+        }
+        .player svg:hover {
+            fill: #555;
+        }
+        .player svg {
+            transform: translateY(2px);
+        }
+        .player .play-pause {
+            width: 2rem;
+            height: 2rem;
+        }
+        .player-middle {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+        }
+        .player-middle p {
+            margin: 0;
+        }
+        .song-artist {
+            color: #333;
+            font-weight: normal;
+            font-size: 0.8em;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1 class="title">HLiDoesSchoolProjects Home</h1>
+        <p><a href="#" id="music-link">Music Player</a></p>
+        <p><a href="bootstrap-portfolio/index.html">The great site of the Bootstrap Portfolio</a></p>
+        <p><a href="word-guesser-game/index.html">Word Guesser Game</a></p>
+    </main>
+    <div class="player-container">
+        <div class="player">
+            <div class="player-left">
+                <svg title="Previous song" onclick="reset()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9.195 18.44c1.25.714 2.805-.189 2.805-1.629v-2.34l6.945 3.968c1.25.715 2.805-.188 2.805-1.628V8.69c0-1.44-1.555-2.343-2.805-1.628L12 11.029v-2.34c0-1.44-1.555-2.343-2.805-1.628l-7.108 4.061c-1.26.72-1.26 2.536 0 3.256l7.108 4.061Z" />
+                </svg>
+                <svg class="play-pause" title="Pause?" onclick="tip('WDYM Pause?')" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0A.75.75 0 0 1 15 4.5h1.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H15a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                </svg>
+                <svg title="Next song" onclick="reset()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M5.055 7.06C3.805 6.347 2.25 7.25 2.25 8.69v8.122c0 1.44 1.555 2.343 2.805 1.628L12 14.471v2.34c0 1.44 1.555 2.343 2.805 1.628l7.108-4.061c1.26-.72 1.26-2.536 0-3.256l-7.108-4.061C13.555 6.346 12 7.249 12 8.689v2.34L5.055 7.061Z" />
+                </svg>
+            </div>
+            <div class="player-middle">
+                <p class="song-name">Never Gonna Give You Up</p>
+                <p class="song-artist">Rick Astley</p>
+            </div>
+            <div class="player-right">
+                <svg title="Change color" onclick="changeColor()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path fill-rule="evenodd" d="M20.599 1.5c-.376 0-.743.111-1.055.32l-5.08 3.385a18.747 18.747 0 0 0-3.471 2.987 10.04 10.04 0 0 1 4.815 4.815 18.748 18.748 0 0 0 2.987-3.472l3.386-5.079A1.902 1.902 0 0 0 20.599 1.5Zm-8.3 14.025a18.76 18.76 0 0 0 1.896-1.207 8.026 8.026 0 0 0-4.513-4.513A18.75 18.75 0 0 0 8.475 11.7l-.278.5a5.26 5.26 0 0 1 3.601 3.602l.502-.278ZM6.75 13.5A3.75 3.75 0 0 0 3 17.25a1.5 1.5 0 0 1-1.601 1.497.75.75 0 0 0-.7 1.123 5.25 5.25 0 0 0 9.8-2.62 3.75 3.75 0 0 0-3.75-3.75Z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const playerContainer = document.getElementsByClassName("player-container")[0];
+        const songArtist = document.getElementsByClassName("song-artist")[0];
+
+        const music = new Audio("assets/music.mp3");
+        music.loop = true;
+        let playerShown = false;
+
+        document.getElementById("music-link").addEventListener("click", () => {
+            if (!playerShown) {
+                playerContainer.style.transform = "translateY(0)";
+                playerShown = true;
+                music.play();
+            }
+        });
+
+        function tip(text) {
+            songArtist.innerHTML = text;
+        }
+        function reset() {
+            tip("Rick Astley");
+            music.currentTime = 0;
+        }
+        function changeColor() {
+            const color = [...Array(3)].map(() => Math.floor(Math.random() * 192).toString(16)).join("");
+            playerContainer.style.boxShadow = `0 0 20px #${color}aa`;
+            document.documentElement.style.setProperty('--theme-color', `#${color}`);
+        }
+    </script>
+</body>
+</html>

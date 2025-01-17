@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Bootstrap Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand mb-0 h1" href="/">
+                <img src="assets/bootstrap-logo.svg" alt="Bootstrap" width="30" height="24" class="d-inline-block align-text-top">
+                Bootstrap Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="education.html">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="awards.html">Awards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="container mt-5">
+        <div class="alert alert-primary" role="alert">
+            Beware—the great site of the Bootstrap Portfolio is coming!
+        </div>
+        <h1 class="display-1">The great site of the Bootstrap Portfolio</h1>
+        <p class="lead mt-3">You're not going to believe this</p>
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md mt-4">
+                    <div class="card">
+                        <img src="https://images.inc.com/uploaded_files/image/1920x1080/getty_503426092_342208.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Great site</h5>
+                            <p class="card-text">We Googled it for you—you won't find another site as great as this. This is the greatest one.</p>
+                            <a href="https://www.google.com/search?q=a+site+as+great+as+the+great+site+of+the+Bootstrap+Portfolio" target="_blank" rel="noreferrer" class="btn btn-primary">Don't Trust Us?</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md mt-4">
+                    <div class="card">
+                        <img src="https://getbootstrap.com/docs/5.3/assets/img/bootstrap-icons.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Uses Bootstrap</h5>
+                            <p class="card-text">We carefully chose the greatest CSS library to ever exist, strengthening our worldwide leadership.</p>
+                            <a href="https://tailwindcss.com/" class="btn btn-primary">See the Greatest CSS Framework</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md mt-4">
+                    <div class="card">
+                        <img src="https://tbwe.com/wp-content/uploads/2023/03/700-by-250-tbwe.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Are we the greatest site?</h5>
+                            <p class="card-text">"Truly, this can't be the greatest site ever, right?" one might ask. Well, don't take our words for it!</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">Ask ChatGPT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Offcanvas -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasLabel">ChatGPT</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p class="text-end"><span style="padding: 0.5rem 1rem; background-color: #dff0ff; border-radius: 10px;">Which website is the greatest website ever?</span></p>
+            <p class="text-start mt-4">The greatest website to ever exist would be "The great site of the Bootstrap Portfolio."</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
