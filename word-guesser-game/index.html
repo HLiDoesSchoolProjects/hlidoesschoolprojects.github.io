@@ -96,10 +96,10 @@
     </style>
 </head>
 <body>
-    <h1 class="title">Word Guessing Game</h1>
+    <h1 class="title">Loading...</h1>
     <div class="guess">
-        <input class="guess-input" type="text" pattern="[a-zA-Z]+" maxlength="5" autocomplete="off" autofocus />
-        <button class="guess-button">Try!</button>
+        <input class="guess-input" type="text" pattern="[a-zA-Z]+" maxlength="5" autocomplete="off" autofocus disabled />
+        <button class="guess-button" disabled>Try!</button>
     </div>
     <div class="wordle">
         <div class="wordle-row">
@@ -151,8 +151,7 @@
     </div>
 
     <script>
-        const WORD_LIST = ["apple", "bored", "const", "delta", "eagle", "flyer", "grape", "horse", "idiom", "joker", "kings", "lemon", "money", "nomad", "other", "prank", "quest", "roast", "super", "toast", "upper", "vague", "waive", "xenon", "yearn", "zebra"];
-
+        const title = document.getElementsByClassName("title")[0];
         const guessInput = document.getElementsByClassName("guess-input")[0];
         const guessButton = document.getElementsByClassName("guess-button")[0];
         const wordleBlocks = document.getElementsByClassName("wordle-block");
@@ -160,29 +159,11 @@
         const endText = document.getElementsByClassName("end-text")[0];
         const restartButton = document.getElementsByClassName("restart-button")[0];
 
-        guessInput.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                guessButton.click();
-            }
-        });
-        guessButton.addEventListener("click", () => {
-            if (guess(guessInput.value)) {
-                guessInput.value = "";
-            };
-        });
-        restartButton.addEventListener("click", () => {
-            answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
-            roundsDone = 0;
-            for (const wordleBlock of wordleBlocks) {
-                wordleBlock.innerHTML = "";
-                wordleBlock.style.border = "2px solid #ccc";
-                wordleBlock.style.backgroundColor = "";
-            }
-            end.style.visibility = "hidden";
-        });
-
-        let answer = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+        let wordList;
+        let answer;
         let roundsDone = 0;
+        let restarts = 0;
+
         function guess(guess) {
             if (guess.length !== 5) return false;
 
@@ -206,10 +187,46 @@
                 endText.innerHTML = `You guessed it in ${roundsDone} rounds!`;
                 end.style.visibility = "visible";
             } else if (roundsDone === 6) {
-                endText.innerHTML = `The correct answer was ${answer.charAt(0).toUpperCase() + answer.slice(1)}.`;
+                endText.innerHTML = `The correct answer was <b>${answer}</b>.`;
                 end.style.visibility = "visible";
             }
             return true;
+        }
+
+        guessInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                guessButton.click();
+            }
+        });
+        guessButton.addEventListener("click", () => {
+            if (guess(guessInput.value)) {
+                guessInput.value = "";
+            };
+        });
+        restartButton.addEventListener("click", () => {
+            answer = wordList[Math.floor(Math.random() * wordList.length)];
+            roundsDone = 0;
+            for (const wordleBlock of wordleBlocks) {
+                wordleBlock.innerHTML = "";
+                wordleBlock.style.border = "2px solid #ccc";
+                wordleBlock.style.backgroundColor = "";
+            }
+            restarts++;
+            if (restarts == 6) {
+                title.innerHTML = "Wow You Really Like the Word Guessing Game";
+            }
+            guessInput.focus();
+            end.style.visibility = "hidden";
+        });
+
+        window.onload = async () => {
+            const apiResponse = await fetch("https://katyisd.github.io/mockapi/words/5letter.json");
+            const data = await apiResponse.json();
+            wordList = data.words;
+            answer = wordList[Math.floor(Math.random() * wordList.length)];
+            title.innerHTML = "Word Guessing Game";
+            guessInput.disabled = false;
+            guessButton.disabled = false;
         }
     </script>
 </body>
