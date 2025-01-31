@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Builder</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .title {
+            margin: 3rem 0 0 0;
+            text-align: center;
+        }
+
+        .options {
+            padding-block: 3rem;
+            display: flex;
+            flex-flow: row wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .width-input, .height-input {
+            width: 12rem;
+            height: 3rem;
+            padding-left: 1rem;
+            box-sizing: border-box;
+            border: 1px solid #888;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1.2em;
+        }
+        .build-button {
+            height: 3rem;
+            padding-inline: 1.5rem;
+            background-color: #eee;
+            border: 1px solid #888;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            user-select: none;
+        }
+        .build-button:hover:enabled {
+            background-color: #ddd;
+        }
+        .build-button:active:enabled {
+            background-color: #aaa;
+        }
+        .build-button:disabled {
+            cursor: not-allowed;
+        }
+
+        .maze {
+            width: fit-content;
+            margin: auto;
+            border-style: solid;
+            border-color: #666;
+            border-width: 2px 0 0 2px;
+            display: grid;
+        }
+        .maze-block {
+            width: 3rem;
+            height: 3rem;
+            border-style: solid;
+            border-color: #666;
+            border-width: 0 2px 2px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Maze Builder</h1>
+    <div class="options">
+        <input class="width-input" type="text" value="30" placeholder="Width" pattern="[0-9]+" maxlength="6" autocomplete="off" autofocus />
+        <input class="height-input" type="text" value="12" placeholder="Height" pattern="[0-9]+" maxlength="6" autocomplete="off" />
+        <button class="build-button">Generate!</button>
+    </div>
+    <div class="maze"></div>
+
+    <script>
+        const widthInput = document.getElementsByClassName("width-input")[0];
+        const heightInput = document.getElementsByClassName("height-input")[0];
+        const buildButton = document.getElementsByClassName("build-button")[0];
+        const maze = document.getElementsByClassName("maze")[0];
+        let mazeBlocks;
+
+        let grid = [];
+        let frontiers = [];
+
+        class MazeBlock {
+            state = "blank"; // "blank" | "frontier" | "in"
+            down = false;
+            right = false;
+        }
+
+        function markIn(r, c) {
+            // mark in
+            grid[r][c].state = "in";
+            mazeBlocks[r * grid[0].length + c].style.backgroundColor = "transparent";
+
+            // mark frontiers
+            if (r > 0 && grid[r - 1][c].state === "blank") {
+                grid[r - 1][c].state = "frontier";
+                frontiers.push([r - 1, c]);
+                mazeBlocks[(r - 1) * grid[0].length + c].style.backgroundColor = "#ffc0cb";
+            }
+            if (r < grid.length - 1 && grid[r + 1][c].state === "blank") {
+                grid[r + 1][c].state = "frontier";
+                frontiers.push([r + 1, c]);
+                mazeBlocks[(r + 1) * grid[0].length + c].style.backgroundColor = "#ffc0cb";
+            }
+            if (c > 0 && grid[r][c - 1].state === "blank") {
+                grid[r][c - 1].state = "frontier";
+                frontiers.push([r, c - 1]);
+                mazeBlocks[r * grid[0].length + c - 1].style.backgroundColor = "#ffc0cb";
+            }
+            if (c < grid[0].length - 1 && grid[r][c + 1].state === "blank") {
+                grid[r][c + 1].state = "frontier";
+                frontiers.push([r, c + 1]);
+                mazeBlocks[r * grid[0].length + c + 1].style.backgroundColor = "#ffc0cb";
+            }
+
+            // mark passage to in neighbors
+            let inNeighbors = [];
+            if (r > 0 && grid[r - 1][c].state === "in") {
+                inNeighbors.push([r - 1, c]);
+            }
+            if (r < grid.length - 1 && grid[r + 1][c].state === "in") {
+                inNeighbors.push([r + 1, c]);
+            }
+            if (c > 0 && grid[r][c - 1].state === "in") {
+                inNeighbors.push([r, c - 1]);
+            }
+            if (c < grid[0].length - 1 && grid[r][c + 1].state === "in") {
+                inNeighbors.push([r, c + 1]);
+            }
+            if (inNeighbors.length > 0) {
+                const neighbor = inNeighbors[Math.floor(Math.random() * inNeighbors.length)];
+                if (neighbor[0] === r - 1) {
+                    grid[r - 1][c].down = true;
+                    mazeBlocks[(r - 1) * grid[0].length + c].style.borderBottomWidth = "0";
+                } else if (neighbor[0] === r + 1) {
+                    grid[r][c].down = true;
+                    mazeBlocks[r * grid[0].length + c].style.borderBottomWidth = "0";
+                } else if (neighbor[1] === c - 1) {
+                    grid[r][c - 1].right = true;
+                    mazeBlocks[r * grid[0].length + c - 1].style.borderRightWidth = "0";
+                } else {
+                    grid[r][c].right = true;
+                    mazeBlocks[r * grid[0].length + c].style.borderRightWidth = "0";
+                }
+            }
+
+            // reiterate
+            if (frontiers.length > 0) {
+                const deleted = frontiers.splice(Math.floor(Math.random() * frontiers.length), 1);
+                setTimeout(() => {
+                    markIn(deleted[0][0], deleted[0][1]);
+                }, 0);
+            } else {
+                buildButton.disabled = false;
+                buildButton.title = "";
+            }
+        }
+
+        function generateMaze(width, height) {
+            // disable build button
+            buildButton.disabled = true;
+            buildButton.title = "Generating...";
+
+            // rebuild the initial grid
+            grid = [];
+            for (let r = 0; r < height; r++) {
+                let row = [];
+                for (let c = 0; c < width; c++) {
+                    row.push(new MazeBlock());
+                }
+                grid.push(row);
+            }
+
+            // recreate initial grid on DOM
+            maze.innerHTML = "";
+            maze.style.gridTemplateColumns = `repeat(${grid[0].length}, 1fr)`;
+            for (let i = 0; i < grid.length * grid[0].length; i++) {
+                const div = document.createElement("div");
+                div.classList.add("maze-block");
+                maze.appendChild(div);
+            }
+            mazeBlocks = document.getElementsByClassName("maze-block");
+
+            // mark a random cell
+            markIn(Math.floor(Math.random() * grid.length), Math.floor(Math.random() * grid[0].length));
+        }
+
+        buildButton.addEventListener("click", () => {
+            generateMaze(widthInput.value, heightInput.value);
+        });
+    </script>
+</body>
+</html>
