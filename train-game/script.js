@@ -18,8 +18,6 @@ const whatCounterText = document.getElementById("what-counter-text");
 // oppo chance claim, initial: put, call
 // after put: call, pass
 
-// rp7ljk8k7x10
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -315,4 +313,14 @@ callButton.addEventListener("click", async () => {
 });
 passButton.addEventListener("click", async () => {
     await passRound();
-})
+});
+
+window.addEventListener("keypress", e => {
+    if (e.key === "1") {
+        putButton.click();
+    } else if (e.key === "2") {
+        callButton.click();
+    } else if (e.key === "3") {
+        passButton.click();
+    }
+});
