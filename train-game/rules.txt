@@ -1,0 +1,24 @@
+Train Game 🚂™ is a very simple game.
+
+Everyone starts with the same number of cards, your goal is to get
+all other players to run out of cards and go bankrupt, and you win.
+
+You have only 3 buttons:
+- When it's your turn, you must "put a card" to the end of the Train 🚂™.
+- If the newest card has the same value as one of the other cards in
+  the Train 🚂™, you can "call a claim" to get all the cards in 
+  between (inclusive).
+- If a player forgets to claim in their round, another player can
+  claim the cards instead.
+- "Pass" to the next player if you're done with your round. (In this
+  case, the Bot 🤖™.)
+
+* This game is actually winnable. It just takes time especially when
+  a player only has a few cards left.
+
+---
+
+It's a childhood card game and is the one I liked the most out of the
+many other modes I was taught. However, this is just a rough mock-up
+of the original game. I forgot the exact rules and details, and made
+up the name too. This is much more fun played with more people IRL.
