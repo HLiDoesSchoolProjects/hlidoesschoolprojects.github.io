@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        main {
+            max-width: 36rem;
+            margin: 0 auto;
+            padding: 1rem;
+            font-family: "Helvetica", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .info-bar {
+            margin-bottom: 1rem;
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.5rem;
+        }
+        .category-switcher {
+            width: 100%;
+            overflow: auto hidden;
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.5rem;
+        }
+        .category {
+            width: fit-content;
+            height: 1.9rem;
+            padding: 0 0.7rem;
+            border-radius: 5px;
+            border: 1px solid #888;
+            background-color: #fafafa;
+            align-content: center;
+            cursor: pointer;
+        }
+        .category span {
+            display: none;
+        }
+        .category-checked {
+            background-color: #eee;
+        }
+        .category-checked span {
+            display: inline;
+        }
+        .category-small {
+            height: 1.5rem;
+            padding: 0 0.5rem;
+        }
+        .items-counter {
+            width: 6rem;
+            text-align: end;
+            align-content: center;
+        }
+        
+        .todo-item {
+            width: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 0;
+        }
+        .todo-item-main {
+            width: 100%;
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .todo-item input[type="checkbox"] {
+            width: 2rem;
+            height: 2rem;
+        }
+        .todo-item input[type="text"] {
+            width: 100%;
+            height: 4rem;
+            padding-left: 0.3rem;
+            border: none;
+            outline: none;
+            font-size: 1.2em;
+            transition: 200ms ease;
+        }
+        .todo-item input[type="text"]:focus {
+            padding-left: 0.6rem;
+        }
+        .todo-item button {
+            width: 2.5rem;
+            aspect-ratio: 1/1;
+            border-radius: 6px;
+            border: none;
+            background-color: transparent;
+            transition: 200ms ease;
+        }
+        .todo-item button:hover {
+            background-color: #eee;
+        }
+        .todo-item button:active {
+            translate: 0 2px;
+        }
+        .todo-item button svg {
+            width: 1.5rem;
+            stroke: #000;
+        }
+        .todo-item-categories-container {
+            width: 100%;
+            margin: 0 2.5rem;
+            border-radius: 5px;
+            background-image: linear-gradient(to right, #eeeeee, transparent);
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="info-bar">
+            <div class="category-switcher"></div>
+            <span class="items-counter">Hello! :)</span>
+        </div>
+        <div class="todos-container"></div>
+        <div id="new-todo-item" class="todo-item">
+            <div class="todo-item-main">
+                <input type="checkbox" style="opacity: 0;" />
+                <input type="text" placeholder="Add a todo item..." />
+            </div>
+        </div>
+    </main>
+
+    <template id="todo-item-template">
+        <div class="todo-item">
+            <div class="todo-item-main">
+                <input type="checkbox" />
+                <input type="text" placeholder="Description..." />
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                    </svg>
+                </button>
+            </div>
+            <div class="todo-item-categories-container"></div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
