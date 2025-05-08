@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getman | gets the man™</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        header {
+            margin-top: 3rem;
+        }
+        header .title-alt {
+            color: gray;
+        }
+        header .slogan {
+            font-size: large;
+        }
+        header .version {
+            font-size: large;
+        }
+
+        main {
+            margin-top: 6rem;
+        }
+        main .download-title {
+            font-size: x-large;
+        }
+        main .executable-download {
+            text-decoration: none;
+        }
+        main .executable-download div {
+            width: fit-content;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            color: white;
+            background-color: black;
+            cursor: pointer;
+            user-select: none;
+            transition: 150ms ease;
+        }
+        main .executable-download div:active {
+            translate: 0 0.2rem;
+        }
+        main .folder-download {
+            display: inline-block;
+            margin-top: 1rem;
+            color: gray;
+            font-size: small;
+        }
+
+        footer {
+            margin-top: 12rem;
+            margin-bottom: 6rem;
+        }
+        footer .copyright {
+            color: gray;
+            font-size: small;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="title">Getman <span class="title-alt">gets the man.</span></h1>
+        <p class="slogan">A basic API tester</p>
+        <p class="version">Version 1.0</p>
+    </header>
+    <main>
+        <p class="download-title">Get the man!</p>
+        <a class="executable-download" href="https://github.com/HLiDoesSchoolProjects/getman/releases/download/1.0/getman.exe" download>
+            <div>Free Download Single Executable 100% No Virus</div>
+        </a>
+        <a class="folder-download" href="https://github.com/HLiDoesSchoolProjects/getman/releases/download/1.0/getman.zip" download>Or Download This Folder Version Which Starts Like 3x Faster Or Something</a>
+    </main>
+    <footer>
+        <p class="copyright">© [Your Year] HLiDoesSchoolProjects™</p>
+    </footer>
+
+    <script>
+        const copyright = document.getElementsByClassName("copyright")[0];
+        
+        // Your Year
+        copyright.innerHTML = `© ${new Date().getFullYear()} HLiDoesSchoolProjects™`;
+    </script>
+</body>
+</html>
