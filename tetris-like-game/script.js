@@ -75,7 +75,8 @@ function initializeGame() {
     currentPieceColor = "";
     currentPieceOriginX = 0;
     currentPieceOriginY = 0;
-    otherInfo.innerHTML = "Use WASD to control";
+    scoreInfo.innerHTML = `Score: ${score}`;
+    otherInfo.innerHTML = "Use arrow keys to control";
     otherOtherInfo.innerHTML = "Space to confirm";
 
     // rebuild logical grid
@@ -193,16 +194,21 @@ function detectFullRows() {
 
 // Start game, game loop, and keyboard controls
 initializeGame();
-document.addEventListener("keypress", event => {
-    if (event.key === "w") {
+document.addEventListener("keydown", event => {
+    if (event.key === "ArrowUp" || event.key === "w") {
+        event.preventDefault();
         changeDirection();
-    } else if (event.key === "a") {
+    } else if (event.key === "ArrowLeft" || event.key === "a") {
+        event.preventDefault();
         moveLeft();
-    } else if (event.key === "d") {
+    } else if (event.key === "ArrowRight" || event.key === "d") {
+        event.preventDefault();
         moveRight();
-    } else if (event.key === "s") {
+    } else if (event.key === "ArrowDown" || event.key === "s") {
+        event.preventDefault();
         moveDown();
-    } else if (event.key === "Enter" || event.key === " ") {
+    } else if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
         if (over === true) {
             initializeGame();
         } else {
