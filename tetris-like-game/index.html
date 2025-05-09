@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool & Controllable Tetris-Like Game Thing</title>
+    <style>
+        body {
+            background-color: #000;
+            overflow-x: hidden;
+        }
+        .ui {
+            width: fit-content;
+            margin-top: 6rem;
+            margin-inline: auto;
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 2rem;
+        }
+        .tetris {
+            border: 1px solid purple;
+            display: grid;
+        }
+        .tetris-block {
+            width: 2rem;
+            height: 2rem;
+        }
+        .info {
+            width: 12rem;
+        }
+        .info p {
+            color: #fff;
+            font-size: 1.2em;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="ui">
+        <div class="tetris"></div>
+        <div class="info">
+            <p class="score-info">Score: 0</p>
+            <p class="other-info">Use WASD to control</p>
+            <p class="other-other-info">Space to confirm</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
